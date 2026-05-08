@@ -6,22 +6,32 @@ pipeline {
         stage('Compile') {
             steps {
                 echo 'Compiling Java code...'
-                bat 'mvn clean compile'
+                sh 'mvn clean compile'
             }
         }
 
         stage('Test') {
             steps {
                 echo 'Running tests...'
-                bat 'mvn test'
+                sh 'mvn test'
             }
         }
 
         stage('Package') {
             steps {
-                echo 'Packaging app...'
-                bat 'mvn package'
+                echo 'Packaging application...'
+                sh 'mvn package'
             }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build completed successfully!'
+        }
+
+        failure {
+            echo 'Build failed!'
         }
     }
 }
